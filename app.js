@@ -46,7 +46,8 @@ studentForm.addEventListener("submit", (event) => {
     };
 
     // Check if all fields are filled out
-    if (!studentData.firstName || !studentData.lastName || !studentData.email) {
+    if (!studentData.firstName || !studentData.lastName || !studentData.email)
+    {
         alert("All input fields must be filled out.");
         return;
     }
