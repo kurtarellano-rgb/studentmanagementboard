@@ -1,49 +1,49 @@
-//Initial Array
-const mockStudentDb = [
-    {
-        id: Date.now(),
-        firstName: "Kurt",
-        lastName: "Arellano",
-        email: "kurt.arellano@example.com"
-    },
-    {
-        id: Date.now() + 1,
-        firstName: "Shino",
-        lastName: "Miguso",
-        email: "emma.baumgarten@example.com"
-    }
-];
-//To print the array
+// let mockStudentDb = [
+//     // {
+//     //     id: Date.now() +1,
+//     //     firstName: "kurt",
+//     //     lastName: "arellano",
+//     //     email: "kurt.arellano@gmail.com"
+//     // },
+//     // {
+//     //     id: Date.now() +1,
+//     //     firstName: "Miguso",
+//     //     lastName: "Shino",
+//     //     email: "sanmigs@gmail.com"
+//     // }
+// ];
+
+
+let mockStudentDb = [];
+
 export function getStudentsAPI() {
-    return mockStudentDb;
+    return [...mockStudentDb];
 }
-/**
- * Adds a new student record to the mock database.
- */
-export function addStudentsAPI(newStudentData) {
-    const savedStudent = {
-        id: Date.now(),
+
+export function addStudentAPI(newStudentData) {
+    const student = {
+        id: Date.now() + 1,
         ...newStudentData
     };
 
-    mockStudentDb.push(savedStudent);
+    mockStudentDb.push(student);
 
-    return savedStudent;
+    return student;
 }
 
-//Test case 1
-console.log("Initial DB State:", getStudentsAPI());
+// //Test case 1
+// console.log("Initial DB State:", getStudentsAPI());
 
-//Test case 2
-const newStudent = {
-    firstName: "Rai",
-    lastName: "Suke",
-    email: "Rai.Suke@example.com"
-};
+// //Test case 2
+// const newStudent = {
+//     firstName: "Rai",
+//     lastName: "Suke",
+//     email: "Rai.Suke@example.com"
+// };
 
-const savedStudent = addStudentsAPI(newStudent);
+// const savedStudent = addStudentsAPI(newStudent);
 
-console.log("Returned Saved Object:", savedStudent);
+// console.log("Returned Saved Object:", savedStudent);
 
-//Test case 3
-console.log("Updated DB State:", getStudentsAPI());
+// //Test case 3
+// console.log("Updated DB State:", getStudentsAPI());
