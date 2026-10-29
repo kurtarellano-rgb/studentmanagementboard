@@ -1,16 +1,14 @@
-import { getStudentsAPI, addStudentAPI } from "./api.js";
 
+import { getStudentsAPI, addStudentAPI } from "./api.js";
 
 // Fields
 let localStudents = [];
 const studentForm = document.getElementById("studentForm");
 const studentTableBody = document.getElementById("studentTableBody");
 
-
 // Render the table
 const renderTable = (dataArray) => {
     studentTableBody.innerHTML = "";
-
 
     if (dataArray.length === 0) {
         studentTableBody.innerHTML = `
@@ -22,23 +20,24 @@ const renderTable = (dataArray) => {
         return;
     }
 
-
     dataArray.forEach((student, index) => {
         const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${index + 1}</td>
-            <td>${student.firstName}</td>
-            <td>${student.lastName}</td>
-            <td>${student.email}</td>`;
+
+        // Use textContent to display student data safely
+        [index + 1, student.firstName, student.lastName, student.email]
+            .forEach((value) => {
+                const cell = document.createElement("td");
+                cell.textContent = value;
+                row.appendChild(cell);
+            });
+
         studentTableBody.appendChild(row);
     });
 };
 
-
 // Handle form submission
 studentForm.addEventListener("submit", (event) => {
-    event.preventDefault(); // stop the page from reloading
-
+    event.preventDefault(); // Stop the page from reloading
 
     const studentData = {
         firstName: document.getElementById("firstName").value.trim(),
@@ -46,31 +45,35 @@ studentForm.addEventListener("submit", (event) => {
         email: document.getElementById("email").value.trim()
     };
 
-
+    // Check if all fields are filled out
     if (!studentData.firstName || !studentData.lastName || !studentData.email) {
         alert("All input fields must be filled out.");
         return;
     }
 
+    // Email validation
+    const emailPattern = /^[^\s@]+@[^\s@.]+\.[^\s@.]+$/;
 
+    if (!emailPattern.test(studentData.email)) {
+        alert("Invalid email. Please use the format sample@gmail.com");
+        return;
+    }
+
+    // Add student to API
     addStudentAPI(studentData);
-    localStudents = getStudentsAPI(); 
+
+    // Refresh student table
+    localStudents = getStudentsAPI();
     renderTable(localStudents);
 
-
-    studentForm.reset(); 
+    // Clear the form
+    studentForm.reset();
 });
-
 
 // Start the app
 const initApp = () => {
     localStudents = getStudentsAPI();
     renderTable(localStudents);
 };
-
-
-
-
-
 
 initApp();
